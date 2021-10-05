@@ -24,15 +24,19 @@ for fname in images:
     print("Undistorting: " + fname)
     img = cv.imread(fname)
     h, w = img.shape[:2]
-    newcameramtx, roi = cv.getOptimalNewCameraMatrix(mtx, dist, (w, h), 1, (w, h))
+
+    # Alpha 0
+    newcameramtx, roi = cv.getOptimalNewCameraMatrix(mtx, dist, (w, h), 0, (w, h))
 
     # Undistort
     dst = cv.undistort(img, mtx, dist, None, newcameramtx)
 
-    # Crop the image
-    x, y, w, h = roi
-    dst = dst[y:y + h, x:x + w]
-
+    # Crop the image (seems to be unnecessary with alpha of 0 above, and 
+    # not doing this fixes the loss of resolution problem)
+    # x, y, w, h = roi
+    # dst = dst[y:y + h, x:x + w]
+ 
     # Write
     output_name = str(os.path.splitext(fname)[0]) + '_undistorted.jpg'
     cv.imwrite(output_name, dst)
+
