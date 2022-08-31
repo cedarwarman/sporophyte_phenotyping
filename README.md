@@ -2,4 +2,4 @@
 A collection of scripts to run sporophyte phenotyping systems. 
 
 Miniconda:
-    conda create -n opencv opencv numpy pyyaml
+`conda create -n opencv opencv numpy pyyaml`
